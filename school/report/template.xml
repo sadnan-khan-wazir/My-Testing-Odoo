@@ -1,0 +1,30 @@
+<odoo>
+    <template id="report_school">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="container">
+                        <div class="row">
+                            <t t-if="o.reg_num ==777">
+                                <div class="col-3 border" style="height:50px;padding-top:12px;text-size:15px;font-weight:bold; background-color:blue;color:white;text-align:center;">
+                                Product Total</div>
+                            </t>
+                            <t t-else="">
+<!--                                <div class="col-3 border" style="height:50px;padding-top:12px;text-size:15px;font-weight:bold; background-color:blue;color:white;text-align:center;">-->
+<!--                                Product Total</div>-->
+                            </t>
+
+                        <div class="col-3 border" style="height:50px;padding-top:12px;text-size:15px;font-weight:bold; background-color:blue;color:white;text-align:center;" >Service Total</div>
+                        <div class="col-2 border" style="height:50px;padding-top:12px;text-size:15px;font-weight:bold; background-color:blue;color:white;text-align:center;">Subtotal</div>
+                        <div class="col-2 border" style="height:50px;padding-top:12px;text-size:15px;font-weight:bold; background-color:blue;color:white;text-align:center;">VAT</div>
+                        <div class="col-2 border" style="height:50px;padding-top:12px;text-size:15px;font-weight:bold; background-color:blue;color:white;text-align:center;">Total</div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

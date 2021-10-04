@@ -1,0 +1,12 @@
+<odoo>
+    <!-- QWeb Reports -->
+    <!-- NAME & FILE_NAME should be the same -->
+            <report
+                id="invoice_report_id"
+                model="account.move"
+                report_type="qweb-pdf"
+                string="NEW INVOICE"
+                name="sale_report.sale_report_id"
+                file="sale_report.sale_report_id"
+            />
+</odoo>

@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+  <record id="partner_form" model="ir.ui.view">
+    <field name="name">res.partner.inherit.view.form</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <field name="email" position="attributes">
+        <attribute name="required">1</attribute>
+      </field>
+      <field name="city" position="attributes">
+        <attribute name="required">1</attribute>
+      </field>
+      <field name="street" position="attributes">
+        <attribute name="required">1</attribute>
+      </field>
+      <field name="parent_id" position="attributes">
+        <attribute name="attrs">{"required":[('company_type','=','person')]}</attribute>
+      </field>
+      <field name="mobile" position="attributes">
+        <attribute name="attrs">{"required":[('phone','=',False)]}</attribute>
+      </field>
+      <field name="phone" position="attributes">
+        <attribute name="attrs">{"required":[('mobile','=',False)]}</attribute>
+      </field>
+    </field>
+  </record>
+  </data>
+</odoo>

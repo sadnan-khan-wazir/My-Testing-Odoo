@@ -1,0 +1,139 @@
+
+.o_FormRenderer_chatterContainer.o-aside{ 
+    // enterprise theme chatter
+    width: 20% !important;
+    max-width: 340px !important;
+}
+// .table-striped tbody tr:nth-of-type(2n+1) {
+//     background-color: rgba(0, 0, 0, 0.03) !important;
+// }
+
+// .table-striped > tbody > tr {
+//     border-bottom: 1px solid #555 !important;
+// }
+
+
+.form-control,
+.form-control:focus,
+.input-group > .input-group-prepend > .btn,
+.input-group > .input-group-prepend > .input-group-text,
+.input-group > .input-group-append:not(:last-child) > .btn,
+.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group > .input-group-append:last-child > .input-group-text {
+    color: #fff;
+    background-color: rgba(30, 30, 30, 0.3);
+    border-radius: 5px;
+}
+
+// .input-group > .form-control:not(:first-child), .input-group > .custom-select {
+//     background-color:rgba(10,10,10,.2);
+//     color:#eee;
+//     border-radius: 4px !important;
+//     border: thin solid gray;
+// }
+
+.o_main_navbar .o_menu_sections.show .dropdown-toggle,
+.o_main_navbar .o_menu_sections.show .dropdown-item {
+        @media (max-width: 799px) {
+            background-color: inherit !important;
+    }
+}
+
+.o_control_panel .o_cp_left {
+    @media(max-width:799px){
+        flex-basis: 10%;
+        max-width: 10%;
+    }
+}
+
+// .o_control_panel .o_cp_searchview, .o_control_panel .o_cp_right {padding: 2px !important;margin: 2px !important;width: 40%;}
+// .o_control_panel .breadcrumb, .o_control_panel .o_cp_left {padding: 2px !important;margin: 2px !important; background-color: unset; width: 48%;}
+
+// .o_web_client > .o_main .o_main_content .o_control_panel {
+//     background-image: url("https://HAJJAJ.PRO/images/odoo-logo.png");
+//     background-repeat: no-repeat;
+//     background-position-x: right;
+//     @media(min-width:800px){
+//         background-position-y: center;
+//         background-size: 12%;
+//     }
+//     @media(max-width:799px){
+//         background-position-y: top;
+//         background-size: 40%;
+//     }
+// }
+
+.o_cp_bottom_right > .btn-group > .btn-group > .btn{
+    font-size: 0;
+}
+
+.btn-group > .btn-group > .btn>.fa {
+    font-size: 17px;
+}
+
+.o_list_view .o_column_sortable {
+    position: unset !important;
+}
+
+.btn {
+    border-radius: 3px;
+    line-height: 1.2;
+}
+
+.show .dropdown-menu .dropdown-header {
+    // Main Menus background
+    background-color: #666;
+    color: #eee;
+    // font-weight: 400;
+    // font-size: 12px;
+}
+
+.o_main_navbar > ul > li > a,
+.o_main_navbar > ul > li > label {
+    // font-weight: 600;
+    // font-size: 14px;
+}
+
+// .o_list_view .o_list_table > thead {
+// 	background-color: lightgray;
+// 	border: 1px solid gray;
+// }
+
+.o_chatter .o_chatter_topbar {
+    display: table !important;
+}
+
+.o_mail_thread .o_thread_message .o_thread_message_core p,
+.o_mail_activity .o_thread_message .o_thread_message_core {
+    margin: 10px !important;
+}
+
+// body {
+//     font-family: "Sans" !important;
+//     font-size: 12px !important;
+// }
+
+.o_unread_message>span {
+    opacity: 1;
+    color: yellowgreen;
+}
+
+.o_list_view thead > tr > th.o_list_number_th {
+    text-align: center !important;
+}
+
+@media (min-width: 1550px) {
+    .mk_chatter_position_sided .o_form_view:not(.o_form_nosheet) > .o_FormRenderer_chatterContainer {
+        min-width: 240px !important;
+        max-width: 340px !important;
+    }
+}
+
+.input-group > .form-control:not(:first-child), .input-group > .custom-select,
+.input-group-prepend {
+    background-color:rgba(10,10,10,.2);
+    color:#eee;
+    border-radius: 4px !important;
+    border: thin solid gray;
+}

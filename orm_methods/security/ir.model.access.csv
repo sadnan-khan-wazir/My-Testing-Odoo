@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_orm_methods_orm_methods,orm_methods.orm_methods,model_orm_methods_orm_methods,base.group_user,1,1,1,1

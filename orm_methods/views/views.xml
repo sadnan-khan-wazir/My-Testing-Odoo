@@ -1,0 +1,112 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="Orm_model_test" model="ir.ui.view">
+        <field name="name">sale oder inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="name"/>
+                <field name="age"/>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']"
+                   position="after">
+                <field name="tax_pak"/>
+            </xpath>
+            <notebook>
+                <page string="New">
+                    <group>
+                        <field name="note"/>
+                        <field name="note_1"/>
+                    </group>
+                </page>
+            </notebook>
+            <notebook>
+                <page string="Record">
+
+                </page>
+            </notebook>
+
+        </field>
+    </record>
+    <!-- Inherit Form View to Modify it -->
+    <record id="purchase_order_new" model="ir.ui.view">
+        <field name="name">Purchase Oder</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <!--                <field name="name"/>-->
+                <field name="age"/>
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="Hr_Employees_id" model="ir.ui.view">
+        <field name="name">Hr Employees</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='coach_id']" position="before">
+                <field name="trainer"/>
+                <field name="hr_id"/>
+                <field name="date_id"/>
+                <field name="sal_id"/>
+
+            </xpath>
+
+        </field>
+    </record>
+    <!-- Inherit Form View to Modify it -->
+    <record id="res_partner_id" model="ir.ui.view">
+        <field name="name">Res Partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="total_text"/>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="sale_abc" model="ir.actions.act_window">
+        <field name="name">Abc</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            <!-- Add Text Here -->
+          </p><p>
+            <!-- More details about what a user can do with this object will be OK -->
+          </p>
+        </field>
+    </record>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="sale_order_new" name="New" action="sale_abc" parent="sale.sale_order_menu" sequence="2"/>
+
+    <record id="purchase_oder_new" model="ir.actions.act_window">
+        <field name="name">New Purchase</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            <!-- Add Text Here -->
+          </p><p>
+            <!-- More details about what a user can do with this object will be OK -->
+          </p>
+        </field>
+    </record>
+<!-- This Menu Item must have a parent and an action -->
+<menuitem id="purchase_order_new" name="New Purchase" action="purchase_oder_new" parent="purchase.menu_procurement_management"  sequence="2"/>
+
+</odoo>

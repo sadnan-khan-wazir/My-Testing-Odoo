@@ -1,0 +1,68 @@
+<odoo>
+  <data>
+        <record id="res_company_pdf_report" model="ir.ui.view">
+        <field name="name">res.company.report.print</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="arabic_name_c"/>
+            </field>
+            <field name="street" position="after">
+                <field name="arabic_address_c" placeholder="Arabic Address"/>
+            </field>
+
+            <field name="street2" position="after">
+                <field name="arabic_city_c" placeholder="Arabic City"/>
+            </field>
+            <field name="country_id" position="after">
+                <field name="arabic_c" placeholder="Arabic Country"/>
+            </field>
+
+            <field name="country_id" position="before">
+                <field name="arabic_z" placeholder="Arabic Zip"/>
+            </field>
+
+            <field name="vat" position="after">
+                <field name="chamber" placeholder="Chamber"/>
+            </field>
+
+        </field>
+    </record>
+    <record id="invoice_pdf_report" model="ir.ui.view">
+        <field name="name">invoice.pdf.report.print</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!--            <xpath expr="//field[@name='name']" position="after">-->
+            <!--                <field name="arabic_name"/>-->
+            <!--            </xpath>-->
+            <field name="name" position="after">
+                <field name="arabic_name"/>
+            </field>
+
+            <field name="type" position="after">
+                <field name="arabic_address" placeholder="Arabic Address"/>
+            </field>
+
+            <field name="zip" position="after">
+                <field name="arabic_city" placeholder="Arabic City"/>
+            </field>
+            <field name="zip" position="after">
+                <field name="arabic_zip" placeholder="Arabic Zip"/>
+            </field>
+            <field name="country_id" position="after">
+                <field name="arabic_c" placeholder="Arabic Country"/>
+            </field>
+            <field name="vat" position="after">
+                <field name="vat_c" placeholder="Arabic Vat"/>
+            </field>
+
+
+            <!--          <xpath expr="//field[@name='street2']" position="after">-->
+            <!--                <field name="arabic_address"/>-->
+            <!--            </xpath>-->
+        </field>
+    </record>
+  </data>
+</odoo>

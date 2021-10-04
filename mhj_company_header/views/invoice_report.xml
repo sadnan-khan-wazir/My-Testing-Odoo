@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+    <report id="account_invoices_header2" model="account.move" string="No Header" report_type="qweb-pdf" name="mhj_company_header.report_invoice_no_header" file="mhj_company_header.report_invoice_no_header" />
+
+    <template id="report_invoice_no_header" inherit_id="account.report_invoice" primary="True">
+      <xpath expr="//t[@t-call='account.report_invoice_document']" position="replace">
+        <t t-call="mhj_company_header.report_invoice_document_no_header" t-lang="o.partner_id.lang" />
+      </xpath>
+    </template>
+
+    <template id="report_invoice_document_no_header" inherit_id="account.report_invoice_document" primary="True">
+      <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+        <attribute name="t-call">mhj_company_header.external_layout_no_header</attribute>
+      </xpath>
+    </template>
+
+    <template id="report_invoice_document_header" inherit_id="account.report_invoice_document" priority="1666">
+
+      <div class="page" position="inside">
+        <div t-if="o.company_id.partner_id.bank_ids" class="row">
+        </div>
+      </div>
+
+    </template>
+
+  </data>
+</odoo>

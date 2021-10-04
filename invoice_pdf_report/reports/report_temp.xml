@@ -1,0 +1,611 @@
+<odoo>
+    <template id="invoice_pdf_report_id">
+        <t t-call="web.html_container">
+            <!--            <t t-call="web.external_layout_standard"/>-->
+            <t t-call="invoice_pdf_report.custom_layout"/>
+
+            <t t-call="web.internal_layout">
+                <!--            <t t-call="web.external_layout">-->
+                <t t-foreach="docs" t-as="doc">
+                    <div class="article o_report_layout_standard"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                         t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <div class="page">
+                            <style>
+                                @font-face {
+                                font-family: GE Dinar One;
+                                src: url('https://fonts2u.com/ge-dinar-one-medium.font'); /*URL to font*/
+                                <!--                                src: url('https://www.whatfontis.com/NMY_Geon-Light.font'); /*URL to font*/-->
+                                font-size:13px;
+                                }
+                                table,tr,th{
+                                font-size:13px;
+                                }
+                                <!--                                table,tr,th{-->
+                                <!--                                font-size:15px;-->
+                                <!--                                font-family: GE Dinar One;-->
+                                <!--                                }-->
+
+                                <!--                                table,tr,th{-->
+                                <!--                                font-size:13px;-->
+                                <!--                                font-family: GE Dinar One;-->
+                                <!--                                }-->
+                                .lightgrey_background {
+                                background-color: lightgrey;
+                                }
+
+                                <!--                                @font-face-->
+                                <!--                                {-->
+                                <!--                                font-family: cool_font;-->
+                                <!--                                src: url('nexa.otf');-->
+                                <!--                                }-->
+                                h1
+                                {
+                                font-family:GE Dinar One;
+                                color:blue;
+                                text-align:center;
+                                }
+                            </style>
+                            <br/>
+
+                            <table width="100%" class="table-sm table-borderedless mt-5">
+                                <thead>
+                                    <tr>
+
+                                        <th t-if="doc.move_type in ('out_invoice', 'out_refund')" width="40%"
+                                            style="background-color:#0070c0;color:white; ">
+                                            <span style="font-weight: 600: font-size: 50px;">
+                                                <h4>INVOICE
+                                                </h4>
+                                            </span>
+                                        </th>
+                                        <th t-else="" width="45%" style="background-color:#0070c0;color:white;">
+
+                                            <span style="font-weight: 600: font-size: 50px;">
+
+                                                <h4>Vendor Bill:
+                                                    <span t-field="doc.name"/>
+
+                                                </h4>
+                                            </span>
+                                        </th>
+
+                                        <th width="90%">
+
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                            <br/>
+                            <table width="100%" class="table-sm text-center"
+                                   style="border:1px solid #002060; font-size:14px;">
+                                <thead>
+                                    <tr>
+                                        <th t-if="doc.move_type in ('out_invoice', 'out_refund')"
+                                            style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            Invoice No.
+                                        </th>
+                                        <th t-else=""
+                                            style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            Bill Reference
+                                        </th>
+                                        <th t-if="doc.move_type in ('out_invoice', 'out_refund')"
+                                            style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            Invoice Date
+                                        </th>
+                                        <th t-else=""
+                                            style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            Bill Date
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            Due Date
+                                        </th>
+                                        <th t-if="doc.move_type in ('out_invoice', 'out_refund')"
+                                            style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            PO/Contract No.
+                                        </th>
+                                        <th t-else=""
+                                            style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            PO#
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            PO/Contract Date
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#0070c0;color:white;">
+                                            Invoice Type
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th style="border:1px solid #002060;background-color:#d9d9d9;font-family: GE Dinar One;">
+                                            رقم الفاتورة
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#d9d9d9;font-family: GE Dinar One;">
+                                            تاريخ الفاتورة
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#d9d9d9; font-family: GE Dinar One;">
+                                            تاريخ استحقاق
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#d9d9d9; font-family: GE Dinar One;">
+                                            رقم أمر الشراء
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#d9d9d9; font-family: GE Dinar One;">
+                                            تاريخ أمر الشراء
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#d9d9d9; font-family: GE Dinar One;">
+                                            نوع الفا تورة
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border:1px solid #002060;background-color:#ffc000;">
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                        <td style="border:1px solid #002060;background-color:#ffc000;">
+                                            <span t-field="doc.invoice_date"/>
+                                        </td>
+                                        <td style="border:1px solid #002060;background-color:#ffc000;">
+                                            <span t-field="doc.invoice_payment_term_id"/>
+                                        </td>
+                                        <td t-if="doc.move_type in ('out_invoice', 'out_refund')"
+                                            style="border:1px solid #002060;background-color:#ffc000;">
+                                            <span t-field="doc.ref"/>
+                                        </td>
+                                        <td t-else="" style="border:1px solid #002060;background-color:#ffc000;">
+                                            <t t-foreach="doc.invoice_line_ids" t-as="pk">
+
+                                                <span t-field="pk.purchase_order_id"/>
+                                            </t>
+                                        </td>
+                                        <td style="border:1px solid #002060;background-color:#ffc000;">
+                                            <span t-field="doc.ref_date"/>
+                                        </td>
+                                        <td style="border:1px solid #002060;background-color:#ffc000;">
+                                            <span t-field="doc.invoice_Type"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <table width="100%">
+                                <tr>
+                                    <td style="background-color:#0070c0; color: white; font-weight:bold; font-size: 12px; padding-left:5px;">
+                                        To
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%">
+                                <tr style="border-top:2px solid #13364B;">
+                                    <td width="33%" class="heading_table_style"
+                                        style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                        <!--                                        <h6 style="font-size: 14px;">Al Fanar Company Limited</h6>-->
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.name"/>
+
+
+                                    </td>
+                                    <td width="33%">
+
+                                    </td>
+                                    <td width="34%" class="text-right heading_table_style"
+                                        style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                        <!--                                        <h6 style="font-size: 14px;">Company Arabic Name</h6>-->
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.arabic_name"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="33%" class="heading_table_style"
+                                        style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                        <!--                                        <h6 style="font-size: 14px;">Address Line 1</h6>-->
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.street"/>
+
+
+                                    </td>
+                                    <td width="33%">
+
+                                    </td>
+                                    <td width="34%" class="text-right heading_table_style"
+                                        style="background-color: lightgrey; padding-left:2px;padding-right:2px;">
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.arabic_address"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="33%" class="heading_table_style"
+                                        style="background-color: lightgrey; padding-left:2px;padding-right:2px;">
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.city"/>
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.zip"/>
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.country_id"/>
+
+                                    </td>
+                                    <td width="33%">
+
+                                    </td>
+                                    <td width="34%" class="text-right heading_table_style"
+                                        style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.arabic_city"/>
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.arabic_zip"/>
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.arabic_c"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="33%" class="heading_table_style"
+                                        style="background-color: lightgrey; padding-left:2px;padding-right:2px;">
+                                        VAT
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.vat"/>
+
+                                    </td>
+                                    <td width="33%">
+
+                                    </td>
+                                    <td width="34%" class="text-right heading_table_style"
+                                        style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                        رقم ضريبة
+                                        <span style="font-size: 14px;" t-field="doc.partner_id.vat_c"/>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <!--                            <table width="100%" class="table table-sm" style="border:1px solid gray;">-->
+                            <!--                                <thead>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <th width="70%" style="background-color:#0070c0;color:white;">-->
+                            <!--                                            TO-->
+                            <!--                                        </th>-->
+                            <!--                                        <th style="background-color:#0070c0;color:white;">-->
+
+                            <!--                                        </th>-->
+                            <!--                                    </tr>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <th style="border:1px solid gray;" width="70%">-->
+                            <!--                                            Al Fanar Company Limited-->
+                            <!--                                        </th>-->
+
+                            <!--                                        <th style="background-color:#aec0d6;text-align:center;border:1px solid #aec0d6;">-->
+                            <!--                                            <span t-field="doc.partner_id.arabic_name"/>-->
+                            <!--                                        </th>-->
+                            <!--                                    </tr>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <th style="border:1px solid gray;" width="70%">-->
+                            <!--                                            Address Line 1-->
+                            <!--                                        </th>-->
+                            <!--                                        <th style="background-color:#aec0d6;text-align:center;border:1px solid #aec0d6;">-->
+                            <!--                                            <span t-field="doc.partner_id.arabic_address"/>-->
+                            <!--                                        </th>-->
+                            <!--                                    </tr>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <th style="border:1px solid gray;" width="70%">-->
+                            <!--                                            City ZIP Country-->
+                            <!--                                        </th>-->
+
+                            <!--                                        <th style="background-color:#aec0d6;text-align:center; border:1px solid #aec0d6;">-->
+                            <!--                                            &lt;!&ndash;                                            <span t-field="doc.partner_id.arabic_address"/>&ndash;&gt;-->
+                            <!--                                        </th>-->
+                            <!--                                    </tr>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <th style="border:1px solid gray;" width="70%">-->
+                            <!--                                            VAT # :-->
+                            <!--                                        </th>-->
+
+                            <!--                                        <th style="background-color:#aec0d6;text-align:center; border:1px solid #aec0d6;">-->
+                            <!--                                            &lt;!&ndash;                                            <span t-field="doc.partner_id.arabic_address"/>&ndash;&gt;-->
+                            <!--                                        </th>-->
+                            <!--                                    </tr>-->
+
+                            <!--                                </thead>-->
+                            <!--                            </table>-->
+                            <br/>
+                            <br/>
+                            <table width="100%" class="table-sm table-borderedless"
+                                   style="border-bottom:2px solid #002060;">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color:#0070c0;color:white; text-align:center;">
+                                            S.No.
+                                        </th>
+                                        <th style="background-color:#0070c0;color:white; text-align:left;">
+                                            Description
+                                        </th>
+                                        <th style="background-color:#0070c0;color:white; text-align:center;">
+                                            Quantity
+                                        </th>
+                                        <th style="background-color:#0070c0;color:white; text-align:center;">
+                                            UOM
+                                        </th>
+                                        <th style="background-color:#0070c0;color:white; text-align:center;">
+                                            U. Price
+                                        </th>
+                                        <th style="background-color:#0070c0;color:white; text-align:center;">
+                                            Taxes
+                                        </th>
+                                        <th style="background-color:#0070c0;color:white; text-align:center;">
+                                            Amount
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="border:1px solid #002060;background-color:#ffc000; border-left: None; font-family: GE Dinar One; text-align:center;">
+                                            الرقم
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#ffc000; font-family: GE Dinar One; text-align:left;">
+                                            البيان
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#ffc000; font-family: GE Dinar One; text-align:center;">
+                                            كمية
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#ffc000; font-family: GE Dinar One; text-align:center;">
+                                            الوحدة
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#ffc000; font-family: GE Dinar One; text-align:center;">
+                                            سعرالوحدة
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#ffc000; font-family: GE Dinar One; text-align:center;">
+                                            ضريبة
+                                        </th>
+                                        <th style="border:1px solid #002060;background-color:#ffc000;border-right: None; font-family: GE Dinar One; text-align:center;">
+                                            المبلغ
+                                        </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <t t-set="count_id" t-value="0"/>
+                                    <t t-foreach="doc.invoice_line_ids" t-as="pk">
+                                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' if pk.display_type == 'line_section' else 'font-italic o_line_note' if pk.display_type == 'line_note' else ''">
+                                            <t t-if="not pk.display_type">
+                                                <t t-set="count_id" t-value="count_id+1"/>
+                                                <td style="background-color:#b9cde5;">
+                                                    <t t-esc="count_id"/>
+                                                </td>
+                                                <td style="background-color:#b9cde5; text-align:left;">
+                                                    <span t-field="pk.name"/>
+                                                </td>
+                                                <td style="background-color:#b9cde5; text-align:right;">
+                                                    <span t-field="pk.quantity"/>
+                                                </td>
+                                                <td style="background-color:#b9cde5;  text-align:right;">
+                                                    <span t-field="pk.product_id.uom_id"/>
+                                                </td>
+                                                <td style="background-color:#b9cde5;  text-align:right;">
+                                                    <span t-field="pk.price_unit"/>
+                                                </td>
+                                                <td style="background-color:#b9cde5; text-align:right;">
+                                                    <span t-field="pk.tax_ids"/>
+                                                </td>
+                                                <td style="background-color:#b9cde5; text-align:right;">
+                                                    <span t-field="pk.price_subtotal"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' if pk.display_type == 'line_section' else 'font-italic o_line_note' if pk.display_type == 'line_note' else ''">
+                                            <t t-if="pk.display_type == 'line_section'">
+                                                <td name="td_section_line" colspan="99" style="text-align: left;">
+                                                    <span t-field="pk.name"/>
+                                                </td>
+                                                <t t-set="current_section" t-value="line"/>
+                                                <t t-set="current_subtotal" t-value="0"/>
+                                            </t>
+                                        </tr>
+                                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' if pk.display_type == 'line_section' else 'font-italic o_line_note' if pk.display_type == 'line_note' else ''">
+                                            <t t-if="pk.display_type == 'line_note'">
+                                                <td name="td_note_line" colspan="99" style="text-align: left;">
+                                                    <span t-field="pk.name"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table width="100%" class="table-sm">
+                                <tr>
+                                    <td width="40%"></td>
+                                    <td width="16.5%"
+                                        style="background-color:#d9d9d9;text-align:left;border-top:2px solid #002060;">
+                                        Untaxed Amount
+                                    </td>
+                                    <td width="24.5%"
+                                        style="background-color:#d9d9d9;text-align:right;border-top:2px solid #002060; font-family: GE Dinar One;">
+                                        المبلغ قبل ضريبة
+                                    </td>
+                                    <td width="19%"
+                                        style="background-color:#d9d9d9;text-align:right;border-top:2px solid #002060;">
+                                        <span t-field="doc.amount_untaxed"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="40%"></td>
+                                    <td width="21.5%" style="background-color:#d9d9d9;">Tax 15 %</td>
+                                    <td width="19.5%"
+                                        style="background-color:#d9d9d9; text-align:right; font-family: GE Dinar One;">
+                                        ضريبة القيمة المضافة
+                                    </td>
+                                    <td width="19%" style="background-color:#d9d9d9; text-align:right;">
+                                        <span t-field="doc.amount_tax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="40%"></td>
+                                    <td width="16.5%" style="background-color:#d9d9d9;text-align:left;">Total Amount
+                                    </td>
+                                    <td width="25.5%"
+                                        style="background-color:#d9d9d9;text-align:right; font-family: GE Dinar One;">
+                                        المبلغ الإجمالي
+                                        شا مل ضريبة
+                                    </td>
+                                    <td width="19%" style="background-color:#d9d9d9;text-align:right;">
+                                        <span t-field="doc.amount_total"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!--                            <table width="100%" class="mt-5">-->
+                            <!--                                <tr>-->
+                            <!--                                    <td style="background-color:#d9d9d9; color: white; font-weight:bold;"></td>-->
+                            <!--                                </tr>-->
+                            <!--                            </table>-->
+
+                            <!--                    <br></br>-->
+                            <table width="100%" class="mt-1 mb-5">
+                                <tr>
+                                    <td style="background-color:#d9d9d9; font-family: GE Dinar One; font-size: 12px;">
+                                        Amount
+                                        in Words:
+                                    </td>
+                                    <td style="background-color:#d9d9d9; font-family: GE Dinar One; font-size: 12px;">
+                                        <t t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table width="100%" class="table-sm table-borderedless mb-5">
+                                <body>
+                                    <tr style="text-align: left;">
+                                        <td>
+                                            <span style="font-weight: bold: font-size: 14px;"
+                                                  t-field="doc.company_id.invoice_terms"></span>
+                                            <!--                                                                <p style='white-space:pre' t-esc="website.company_id.invoice_terms"/>-->
+
+                                        </td>
+
+                                    </tr>
+                                </body>
+                            </table>
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="report_bran_sale">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+    <!--     <template t-name="web.external_layout_standard">-->
+    <!--        <div class="container" t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style"-->
+    <!--             height="10%">-->
+    <!--            <div class="row">-->
+    <!--                <div class="col-7 mb10" style="border-bottom:1px solid;">-->
+    <!--                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"-->
+    <!--             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"-->
+    <!--             t-att-data-oe-lang="o and o.env.context.get('lang')">-->
+    <!--            <div class="pt-5">-->
+    <!--                &lt;!&ndash; This div ensures that the address is not cropped by the header. &ndash;&gt;-->
+    <!--                <t t-call="web.address_layout"/>-->
+
+    <!--            </div>-->
+    <!--            <t t-raw="0"/>-->
+    <!--        </div>-->
+    <!--        <div t-attf-class="footer o_standard_footer" position="attributes" id="footer" style="margin-top:0px;">-->
+    <!--            <attribute name="t-if">-->
+    <!--            </attribute>-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash;            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout" position="after">&ndash;&gt;-->
+    <!--        <div t-attf-class="footer o_standard_footer" position="after">-->
+    <!--            &lt;!&ndash;                <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">&ndash;&gt;-->
+    <!--            <div t-attf-class="footer o_standard_footer">-->
+    <!--                <t t-if="custom_footer" t-raw="custom_footer"/>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </template>-->
+
+
+    <template t-name="web.external_layout_standard">
+        <!--        <t t-call="web.html_container">-->
+        <t t-foreach="docs" t-as="doc">
+
+            <style>
+                .heading_table_style{ padding-left:2px;padding-right:2px;}
+            </style>
+            <div t-attf-class="header">
+                <div class="container text-left">
+                    <table width="100%">
+                        <tr>
+                            <td style="padding-bottom:2px;">
+                                <!--                                     <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="width:140px; height:110px;"/>-->
+                                <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" alt="Logo"
+                                     style="width:140px; height:80px;"/>
+                                <!--                                    <img t-if="doc.company_id.logo" t-att-src="'data:image/png;base64,%s' %doc.company_id.logo" style="width:140px; height:40px;"/>-->
+
+                                <!--                                    <img src="/invoice_pdf_report/static/src/img.png" class="img"-->
+                                <!--                                         style="width:170px; height:50px;"/>-->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container">
+                    <table width="100%">
+                        <tr style="border-top:2px solid #13364B;">
+                            <td width="33%" class="heading_table_style"
+                                style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                <span style="font-size: 14px;" t-field="doc.company_id.name"/>
+                            </td>
+                            <td width="33%">
+
+                            </td>
+                            <td width="34%" class="text-right heading_table_style"
+                                style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                <span style="font-size: 14px;" t-field="doc.company_id.arabic_name_c"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="33%" class="heading_table_style"
+                                style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                <span style="font-size: 14px;" t-field="doc.company_id.street"/>
+                            </td>
+                            <td width="33%">
+
+                            </td>
+                            <td width="34%" class="text-right heading_table_style"
+                                style="background-color: lightgrey; padding-left:2px;padding-right:2px;">
+                                <span style="font-size: 14px;" t-field="doc.company_id.arabic_address_c"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="33%" class="heading_table_style"
+                                style="background-color: lightgrey; padding-left:2px;padding-right:2px;">
+                                <span style="font-size: 14px;" t-field="doc.company_id.city"/>
+                                <span style="font-size: 14px;" t-field="doc.company_id.zip"/>
+                                <span style="font-size: 14px;" t-field="doc.company_id.country_id"/>
+                            </td>
+                            <td width="33%">
+                            </td>
+                            <td width="34%" class="text-right heading_table_style"
+                                style="background-color: lightgrey;padding-left:2px;padding-right:2px;">
+                                <span style="font-size: 14px;" t-field="doc.company_id.arabic_city_c"/>
+                                <span style="font-size: 14px;" t-field="doc.company_id.arabic_z"/>
+                                <span style="font-size: 14px;" t-field="doc.company_id.arabic_c"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div t-attf-class="footer">
+                <div class="container text-center"
+                     style="background-color:#0070c0; color: white; border-top:2px solid #002060;border-bottom:2px solid #002060;">
+                    T:
+                    <span style="font-size: 14px;" t-field="doc.company_id.phone"/>
+                    CR
+                    <span style="font-size: 14px;" t-field="doc.company_id.company_registry"/>
+                    Chamber
+                    <span style="font-size: 14px;" t-field="doc.company_id.chamber"/>
+                    VAT
+                    <span style="font-size: 14px;" t-field="doc.company_id.vat"/>
+
+                    <br/>
+                    Contact @ Baran.Com.Sa www.Baran.Com.Sa
+
+                </div>
+            </div>
+            <!--            </t>-->
+        </t>
+    </template>
+</odoo>

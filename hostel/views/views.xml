@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="hostel.list">
+            <field name="name">hostel list</field>
+            <field name="model">hostel.hostel</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="s_info"/>
+                    <field name="s_name"/>
+                    <field name="s_contact"/>
+                    <field name="admin"/>
+                    <field name="address"/>
+                    <field name="reg"/>
+                    <field name="test"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hostel.action_window">
+            <field name="name">hostel</field>
+            <field name="res_model">hostel.hostel</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="hostel_from" model="ir.ui.view">
+            <field name="name">hostel form</field>
+            <field name="model">hostel.hostel</field>
+            <field name="arch" type="xml">
+                <form string="Details">
+                    <header>
+                        <field name="state" widget = 'statusbar' nolabel="1" />
+                    </header>
+                    <sheet>
+                        <group>
+
+
+                            <group>
+                                <field name="name"/>
+                                <field name="s_info"/>
+                                <field name="s_name"/>
+                                <field name="s_contact"/>
+                            </group>
+                            <group>
+                                <field name="admin"/>
+                                <field name="address"/>
+                                <field name="reg"/>
+                                <field name="test"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem name="hostel" id="hostel.menu_root"/>
+
+
+        <menuitem name="Hostel" id="hostel.menu_1_list" action="hostel.action_window"/>
+    </data>
+</odoo>

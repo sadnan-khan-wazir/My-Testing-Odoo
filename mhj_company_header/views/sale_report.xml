@@ -1,0 +1,87 @@
+<odoo>
+  <data>
+    <report id="report_sale_order" string="No Header" model="sale.order" report_type="qweb-pdf" file="mhj_company_header.report_saleorder_no_header" name="mhj_company_header.report_saleorder_no_header" />
+
+    <template id="report_saleorder_no_header">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+          <t t-call="mhj_company_header.report_saleorder_document_no_header" t-lang="doc.partner_id.lang" />
+        </t>
+      </t>
+    </template>
+
+    <template id="report_saleorder_document_no_header" primary="True" inherit_id="sale.report_saleorder_document">
+      <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+        <attribute name="t-call">mhj_company_header.external_layout_no_header</attribute>
+      </xpath>
+    </template>
+
+    <template id="report_saleorder_document" priority="18" inherit_id="sale.report_saleorder_document">
+      <div class="page" position="attributes">
+        <attribute name="style">font-size: 14px !importnat;</attribute>
+      </div>
+
+      <h2 position='replace'>
+        <div class="row table">
+
+          <div class="col-4" style="font-size: 14px !important;">
+            <span>
+              <strong>
+                From:
+              </strong>
+              <span t-field="doc.company_id.partner_id.display_name" />
+            </span>
+            <span style="font-size:12px !important;">
+              <span t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address","phone","mobile","email"], "no_tag_br": True, "no_marker": False}' />
+              <!-- <span t-if="doc.company_id.vat" class="mt16">
+                <t t-if="doc.company_id.country_id.vat_label" t-esc="doc.company_id.country_id.vat_label" id="inv_tax_id_label" />
+                <t t-else="">Tax ID:</t>
+                <span t-field="doc.company_id.vat" />
+              </span> -->
+            </span>
+          </div>
+
+          <div class="col-4">
+            <h2 style="font-size: 18px !important;">
+              <strong>
+                <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                  <span t-if="doc.state not in ['draft','sent']">Order # </span>
+                  <span t-if="doc.state in ['draft','sent']">Quotation # </span>
+                </t>
+                <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                  <span>Pro-Forma Invoice # </span>
+                </t>
+              </strong>
+              <span t-field="doc.name" />
+            </h2>
+          </div>
+
+          <div class="col-4" style="font-size: 14px !important;">
+            <span>
+              <span>
+                <strong>
+                To:
+              </strong>
+                <span t-field="doc.partner_id.display_name" />
+              </span>
+              <span style="font-size:12px !important;">
+                <span t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address","phone","mobile","email"], "no_tag_br": True, "no_marker": False}' />
+                <span t-if="doc.partner_id.vat" class="mt16">
+                  <t t-if="doc.company_id.country_id.vat_label" t-esc="doc.company_id.country_id.vat_label" id="inv_tax_id_label" />
+                  <t t-else="">Tax ID:</t>
+                  <span t-field="doc.partner_id.vat" />
+                </span>
+              </span>
+            </span>
+          </div>
+
+        </div>
+
+      </h2>
+
+      <div id='informations' position='replace'/>
+    </template>
+
+
+  </data>
+</odoo>

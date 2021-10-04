@@ -1,0 +1,11 @@
+<odoo>
+
+    <report
+            id="invoice_report_id"
+            model="school.school"
+            report_type="qweb-pdf"
+            string="Report"
+            name="school.report_school"
+            file="school.report_school"
+    />
+</odoo>

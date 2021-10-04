@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="school.form">
+            <field name="name">school list</field>
+            <field name="model">school.school</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="test" string="Test" type="object" class="btn-primary"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="reg_num"/>
+                                <field name="campus_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="chk_box"/>
+                                <field name="rank_auto"/>
+
+                            </group>
+                            <group>
+                                <field name="address"/>
+                                <field name="total_students"/>
+                                <field name="school_type"/>
+                                <field name="date_id"/>
+                                <field name="date_chk"/>
+                                <field name="chk"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="school.action_form">
+            <field name="name">school window</field>
+            <field name="res_model">school.school</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="school.list">
+            <field name="name">school list</field>
+            <field name="model">school.school</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="reg_num"/>
+                    <field name="address"/>
+                    <field name="total_students"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="school.action_window">
+            <field name="name">school window</field>
+            <field name="res_model">school.school</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="school" id="school.menu_1"/>
+
+
+        <!-- actions -->
+
+        <menuitem name="school" id="school.menu_1_list" action="school.action_window"/>
+
+
+    </data>
+</odoo>

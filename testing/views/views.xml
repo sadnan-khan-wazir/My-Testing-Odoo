@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <record id="testing1" model="ir.ui.view">
+            <field name="name">testing form</field>
+            <field name="model">testing.testing</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="f_name"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="contact"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="testing_tree" model="ir.ui.view">
+            <field name="name">testing tree</field>
+            <field name="model">testing.testing</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="f_name"/>
+                    <field name="contact"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="testing_action" model="ir.actions.act_window">
+            <field name="name">Testing action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">testing.testing</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="testing_main_menu" name="testing" action="testing_action" sequence="50"/>
+
+    </data>
+</odoo>

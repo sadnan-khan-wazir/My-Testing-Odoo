@@ -1,0 +1,3 @@
+"id","name","code","iso_code","direction","grouping","decimal_point","thousands_sep","date_format","time_format","url_code"
+"base.lang_en","English","en_US","en","Left-to-Right","[3,3,3,3,0]",".",",","%d/%m/%Y","%H:%M:%S",en_US
+"base.lang_ar_EG","عربي","ar_EG","ar","Right-to-Left","[3,3,3,3,0]",".",",","%d/%m/%Y","%H:%M:%S",ar_EG

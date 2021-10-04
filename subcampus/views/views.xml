@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="subcampus.list">
+            <field name="name">subcampus list</field>
+            <field name="model">subcampus.subcampus</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="faculty"/>
+                    <field name="address"/>
+
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="subcampus.action_form">
+            <field name="name">subcampus window</field>
+            <field name="res_model">subcampus.subcampus</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="subcampus.form">
+            <field name="name">subcampus list</field>
+            <field name="model">subcampus.subcampus</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="faculty"/>
+                            <field name="address"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="subcampus.action_window">
+            <field name="name">subcampus window</field>
+            <field name="res_model">subcampus.subcampus</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+        <menuitem name="subcampus" id="subcampus.menu_root"/>
+
+        <!-- menu categories -->
+
+        <menuitem name="subcampus" id="subcampus.menu_1"/>
+
+
+        <menuitem name="subcampus" id="subcampus.menu_1_list" action="subcampus.action_window"/>
+
+    </data>
+</odoo>
